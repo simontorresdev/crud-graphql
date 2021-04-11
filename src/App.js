@@ -1,48 +1,28 @@
-import logo from './logo.svg'
-import { useQuery, gql } from '@apollo/client'
-import './App.css'
-
-const GET_CLIENTS = gql`
-  query{
-    clientsSearch{
-      currentPage
-      totalPages
-      resultsPerPage
-      results{
-        id,
-        firstName
-        lastName
-        cedula
-        address
-        city
-        cellphone
-        credit
-      }
-    }
-  }
-`
+import { useState } from 'react'
+import { useQuery } from '@apollo/client'
+import { GET_CLIENTS } from './graphql/querys'
+import { TableClients } from './components/TableClients'
+import { Header } from './components/Header'
+import { ControlsTable } from './components/ControlsTable'
 
 function App () {
-  const { loading, error, data } = useQuery(GET_CLIENTS)
+  const [page, setPage] = useState(0)
+  const { loading, error, data, refetch } = useQuery(GET_CLIENTS, { variables: { page: page } })
 
   return (
-    <div className='App'>
-      {console.log(data, 'data')}
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      {loading &&
+        <p>Cargando...</p>}
+      {error &&
+        <p>Error...</p>}
+      {data &&
+        <>
+          {console.log(data.clientsSearch, 'data')}
+          <ControlsTable pages={data.clientsSearch.totalPages} setPage={setPage} refetch={refetch} currentPage={data.clientsSearch.currentPage} />
+          <TableClients data={data.clientsSearch} />
+        </>}
+    </>
   )
 }
 
