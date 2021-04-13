@@ -15,6 +15,29 @@ export const GET_CLIENTS = gql`
         city
         cellphone
         credit
+        state{
+          id
+          name
+          cities{
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`
+
+export const GET_STATES = gql`
+  query States{
+    states{
+      id
+      name
+      shortCode
+      cities{
+        displayName
+        shortCode
+        id
       }
     }
   }

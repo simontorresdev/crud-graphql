@@ -2,7 +2,7 @@ import React from 'react'
 import { ListingTable } from '../ListingTable'
 import { StyledTableClients } from './styles'
 
-export const TableClients = ({ data }) => {
+export const TableClients = ({ data, refetch }) => {
   const { results } = data
   return (
     <StyledTableClients>
@@ -18,7 +18,7 @@ export const TableClients = ({ data }) => {
         </thead>
         <tbody>
           {results.map(client => (
-            <ListingTable key={client.id} client={client} />
+            <ListingTable key={client.id} client={client} refetch={refetch} />
           ))}
         </tbody>
       </table>

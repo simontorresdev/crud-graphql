@@ -20,7 +20,7 @@ function App () {
         <>
           {console.log(data.clientsSearch, 'data')}
           <ControlsTable pages={data.clientsSearch.totalPages} setPage={setPage} refetch={refetch} currentPage={data.clientsSearch.currentPage} />
-          <TableClients data={data.clientsSearch} />
+          <TableClients data={data.clientsSearch} refetch={refetch} />
         </>}
     </>
   )

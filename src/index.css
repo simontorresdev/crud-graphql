@@ -58,7 +58,7 @@ button{
   transition: .3s;
 }
 button:disabled {
-  background: rgba(6, 28, 37, 0.7);
+  background: rgba(91, 42, 208, 0.5);
 }
 button:active{
   transform: scale(0.8);

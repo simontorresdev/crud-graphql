@@ -5,11 +5,14 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { ApolloProvider } from '@apollo/client/react'
 import { client } from './graphql/client'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <App />
+      <ToastContainer />
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')

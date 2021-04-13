@@ -29,7 +29,7 @@ export const ControlsTable = ({ pages, setPage, refetch, currentPage }) => {
       </section>
       <button type='button' onClick={() => setOpen(true)}>Crear nuevo cliente</button>
       <PopUp open={open} onClose={closeModal} closeOnDocumentClick>
-        <CreateOrEdit />
+        <CreateOrEdit refetch={refetch} setOpen={setOpen} />
       </PopUp>
     </StylesControlsTable>
   )
