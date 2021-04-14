@@ -63,7 +63,7 @@ export const UPDATE_CLIENT = gql`
       id: $id,
       input: { 
         firstName: $firstName, 
-        lastName: $lastName, 
+      lastName: $lastName, 
         cedula: $cedula, 
         cellphone: $cellphone, 
         address: { 

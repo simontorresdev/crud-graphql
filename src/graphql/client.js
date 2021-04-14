@@ -1,9 +1,13 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
+require('dotenv').config()
+
+const link = `https://${process.env.REACT_APP_URL}/gql/`
+const token = process.env.REACT_APP_TOKEN
 
 export const client = new ApolloClient({
-  uri: 'https://543-task-logistics-technical-abstraction.dev.elenas.la/gql/',
+  uri: link,
   cache: new InMemoryCache(),
   headers: {
-    Authorization: 'Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiKzU3MzA1NzE5OTk5NSIsImlhdCI6MTYxODA2NTU2MH0.Tjk82iTgqop3RiuNQ_6gkRPi_enuFMknWDyoZna7jww'
+    Authorization: `Token ${token}`
   }
 })
