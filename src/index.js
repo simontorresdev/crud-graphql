@@ -7,11 +7,9 @@ import { ApolloProvider } from '@apollo/client/react'
 import { client } from './graphql/client'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-require('dotenv').config()
 
 ReactDOM.render(
   <React.StrictMode>
-    {console.log(client)}
     <ApolloProvider client={client}>
       <App />
       <ToastContainer />

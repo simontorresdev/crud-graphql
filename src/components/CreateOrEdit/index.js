@@ -32,6 +32,8 @@ export const CreateOrEdit = (props) => {
   const [createClient] = useMutation(CREATE_CLIENT)
   const [updateClient] = useMutation(UPDATE_CLIENT)
 
+  // Apenas se renderiza el componente traemos los departamentos y ciudades de Colombia
+
   useEffect(() => {
     client
       .query({
@@ -40,22 +42,27 @@ export const CreateOrEdit = (props) => {
       .then(result => setStates(result.data.states))
   }, [])
 
+  // Al seleccionar un departamento actualizamos las ciudades que mostramos en pantalla
+
   const handleDepartment = (event) => {
     handleCities(event.target.value)
   }
 
+  // Actualizamos el estado de ciudades que estan mostrandose al usuario y tambien detectamos
+  // si se esta editando un usuario, colocamos la ciudad activa respectiva del cliente
+
   const handleCities = (valueActiveState) => {
     const activeCities = states.filter(state => state.id === parseInt(valueActiveState))
     const activeCity = activeCities[0].cities.filter(town => town.displayName === city)
-
-    console.log(activeCities, 'active')
-    console.log(activeCity, 'active city')
 
     setCities(activeCities[0].cities)
     if (activeCity[0] !== undefined) {
       setActiveCity(activeCity[0].id)
     }
   }
+
+  // Cuando ya traemos la info de los departamentos, llamamos esta funcion para saber que ciudades
+  // deben mostrarse
 
   useEffect(() => {
     if (states !== null) {
@@ -72,6 +79,8 @@ export const CreateOrEdit = (props) => {
     }
   }
 
+  // Creamos un nuevo cliente
+
   const submitCreateClient = async data => {
     setLoading(true)
     const response = await createClient(
@@ -86,8 +95,6 @@ export const CreateOrEdit = (props) => {
           stateId: parseInt(data.state)
         }
       })
-    console.log(data, 'FORMULARIO')
-    console.log(response, 'response')
     if (response.data.createClient.__typename === 'Client') {
       refetch()
       ModalSuccess('Cliente creado con éxito')
@@ -97,6 +104,8 @@ export const CreateOrEdit = (props) => {
     }
     setLoading(false)
   }
+
+  // Editamos un cliente
 
   const submitUpdateClient = async data => {
     setLoading(true)
@@ -113,8 +122,6 @@ export const CreateOrEdit = (props) => {
           stateId: parseInt(data.state)
         }
       })
-    console.log(data, 'FORMULARIO')
-    console.log(response, 'response')
     if (response.data.updateClient.__typename === 'Client') {
       refetch()
       ModalSuccess('Cliente actualizado con éxito')
@@ -128,8 +135,6 @@ export const CreateOrEdit = (props) => {
   return (
     <StylesCreateOrEdit>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {console.log(states, 'states')}
-        {console.log(cities, 'cities')}
         <div className='twoCol'>
           <label htmlFor='firstname'>
             Nombre
